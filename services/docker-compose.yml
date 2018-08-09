@@ -41,6 +41,7 @@ services:
       - php-fpm72:php-fpm72
       - php-fpm56:php-fpm56
     volumes:
+      - ${APPLICATION}:/data/www:rw
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/certs/:/etc/nginx/certs
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
