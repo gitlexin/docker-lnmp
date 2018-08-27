@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
         && docker-php-ext-install pdo_mysql \
         && docker-php-ext-install opcache \
         && docker-php-ext-install mysqli \
+        && docker-php-ext-install mysql \
         && rm -r /var/lib/apt/lists/*
 
 # 将预先下载好的拓展包从宿主机拷贝进去
@@ -108,3 +109,9 @@ WORKDIR /data
 
 # 写权限
 RUN usermod -u 1000 www-data
+
+# 安装额外扩展
+RUN apt-get update && apt-get install -y \
+        libmcrypt-dev \
+        libxml2-dev \
+        && docker-php-ext-install mcrypt bcmath mbstring opcache soap

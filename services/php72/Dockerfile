@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
         && docker-php-ext-install pdo_mysql \
         && docker-php-ext-install opcache \
         && docker-php-ext-install mysqli \
+        && docker-php-ext-install bcmath \
         && rm -r /var/lib/apt/lists/*
 
 # 将预先下载好的拓展包从宿主机拷贝进去
@@ -70,10 +71,6 @@ RUN pecl install xdebug && \
     docker-php-ext-enable xdebug 
 COPY ./pkg/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
-# 安装memcache
-RUN pecl install memcache && \
-    echo "extension=memcache.so" > /usr/local/etc/php/conf.d/memcache.ini
-
 # 删除扩展包
 RUN rm -f /home/redis.tgz
 RUN rm -f /home/libmemcached.tar.gz
@@ -83,3 +80,11 @@ WORKDIR /data
 
 # 写权限
 RUN usermod -u 1000 www-data
+
+RUN php -m
+
+# 安装额外扩展
+RUN apt-get update && apt-get install -y \
+        libmcrypt-dev \
+        libxml2-dev \
+        && docker-php-ext-install mcrypt opcache soap
