@@ -53,16 +53,6 @@ RUN tar zxvf /home/memcached-2.2.0.tgz \
 
 
 
-# 安装 Swoole
-#RUN cd /home \
-#    && git clone https://gitee.com/swoole/swoole.git \
-#    && cd swoole \
-#    && phpize \
-#    && ./configure --enable-openssl -with-php-config=/usr/local/bin/php-config \
-#    && make \
-#    && make install \
-#    && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini
-
 # 安装opencc
 COPY ./pkg/opencc.tar /home/opencc.tar
 RUN apt-get update && apt-get install -y \
@@ -88,11 +78,6 @@ ENV COMPOSER_HOME /root/composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ENV PATH $COMPOSER_HOME/vendor/bin:$PATH
 
-# 安装xdebug
-RUN pecl install xdebug-2.3.3 && \
-    docker-php-ext-enable xdebug 
-COPY ./pkg/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
-
 # 安装memcache
 RUN pecl install memcache && \
     echo "extension=memcache.so" > /usr/local/etc/php/conf.d/memcache.ini
@@ -110,8 +95,26 @@ WORKDIR /data
 # 写权限
 RUN usermod -u 1000 www-data
 
+
 # 安装额外扩展
 RUN apt-get update && apt-get install -y \
         libmcrypt-dev \
         libxml2-dev \
         && docker-php-ext-install mcrypt bcmath mbstring opcache soap
+
+# 安装xdebug
+RUN pecl install xdebug-2.3.3 && \
+    docker-php-ext-enable xdebug 
+COPY ./pkg/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
+
+
+# 安装 Swoole
+#RUN cd /home \
+#    && git clone https://gitee.com/swoole/swoole.git \
+#    && cd swoole \
+#    && phpize \
+#    && ./configure --enable-openssl -with-php-config=/usr/local/bin/php-config \
+#    && make \
+#    && make install \
+#    && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini

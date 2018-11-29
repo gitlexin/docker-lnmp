@@ -85,6 +85,5 @@ RUN php -m
 
 # 安装额外扩展
 RUN apt-get update && apt-get install -y \
-        libmcrypt-dev \
         libxml2-dev \
-        && docker-php-ext-install mcrypt opcache soap
+        && docker-php-ext-install opcache soap
