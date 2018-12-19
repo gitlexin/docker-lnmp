@@ -4,6 +4,7 @@ services:
     build: ./php72/
     expose:
       - "9000"
+      - "9001"
     links:
       - mysql-db:mysql-db
       - redis-db:redis-db
@@ -20,6 +21,7 @@ services:
     build: ./php56/
     expose:
       - "9000"
+      - "9001"
     links:
       - mysql-db:mysql-db
       - redis-db:redis-db
