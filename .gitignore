@@ -1,3 +1,5 @@
+.idea/
 /logs/*
 services/nginx/conf.d/*.conf
 !services/nginx/conf.d/example.conf
+!services/nginx/conf.d/snippets/*.conf
