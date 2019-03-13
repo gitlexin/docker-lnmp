@@ -1,5 +1,6 @@
 .idea/
 /logs/*
+services/.env
 services/nginx/conf.d/*.conf
 !services/nginx/conf.d/example.conf
 !services/nginx/conf.d/snippets/*.conf
