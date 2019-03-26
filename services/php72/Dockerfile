@@ -87,3 +87,6 @@ RUN php -m
 RUN apt-get update && apt-get install -y \
         libxml2-dev \
         && docker-php-ext-install opcache soap
+
+# 安装gnupg扩展
+RUN apt-get update && apt-get install -y libgpgme11-dev &&  pecl install gnupg && echo "extension=gnupg.so" > /usr/local/etc/php/conf.d/gnupg.ini

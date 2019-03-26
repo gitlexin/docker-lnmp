@@ -107,6 +107,9 @@ RUN pecl install xdebug-2.3.3 && \
     docker-php-ext-enable xdebug 
 COPY ./pkg/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
+# 安装gnupg扩展
+RUN apt-get install -y libgpgme11-dev &&  pecl install gnupg && echo "extension=gnupg.so" > /usr/local/etc/php/conf.d/gnupg.ini
+
 
 
 # 安装 Swoole
