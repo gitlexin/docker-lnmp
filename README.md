@@ -117,7 +117,7 @@ docker-compose down
 # 重启某个容器
 docker-compose restart nginx|php-fpm56等service名
 # 进入容器
-docker-compose exec -it 容器id /bin/bash
+docker exec -it 容器id /bin/bash
 ```
 
 ## 问题反馈
