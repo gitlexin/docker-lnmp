@@ -1,10 +1,11 @@
-version: '2'
+version: '3'
 services:
   php-fpm72:
     build: ./php72/
     expose:
       - "9000"
       - "9001"
+      - "9501"
     links:
       - mysql-db:mysql-db
       - redis-db:redis-db
@@ -16,6 +17,8 @@ services:
       - ../logs/php-fpm72:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
+    environment:
+      - APPLICATION_ENV=development
 
   php-fpm56:
     build: ./php56/
@@ -33,6 +36,8 @@ services:
       - ../logs/php-fpm56:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
+    environment:
+      - APPLICATION_ENV=development
 
   nginx:
     build: ./nginx
